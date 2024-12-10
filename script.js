@@ -1,52 +1,38 @@
 function convertToRoman(num) {
-  	const obj = {
-      0:['M',1000], 
-      1:['D', 500], 
-      2:['C', 100], 
-      3:['L', 50], 
-      4:['X', 10], 
-      5:['V', 5], 
-      6:['I', 1]
-    };
+    if (num < 1 || num > 100000) {
+        return 
+    }
 
-  //your code here
+    const romanSymbols = [
+        ["M", 1000],
+        ["CM", 900],
+        ["D", 500],
+        ["CD", 400],
+        ["C", 100],
+        ["XC", 90],
+        ["L", 50],
+        ["XL", 40],
+        ["X", 10],
+        ["IX", 9],
+        ["V", 5],
+        ["IV", 4],
+        ["I", 1]
+    ];
 
-}
-// You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
+    let romanNumeral = "";
 
-// console.log(convertToRoman(36));
- 
-
-
-    let roman = '';
-
-    // Iterate over each place value (thousands, hundreds, tens, ones)
-    for (let i = 0; i <= 6; i++) {
-        let symbol = obj[i][0];
-        let value = obj[i][1];
-
-        // Find how many times the symbol fits into the number
+    for (const [symbol, value] of romanSymbols) {
         while (num >= value) {
-            roman += symbol;
+            romanNumeral += symbol;
             num -= value;
-        }
-
-        // Handle special cases for subtractive notation (like IV, IX, etc.)
-        if (i % 2 === 0 && num >= value - obj[i + 1]?.[1]) { // For 1000, 100, 10, 1 (check if subtractive is possible)
-            roman += obj[i + 1][0] + symbol;
-            num -= (value - obj[i + 1][1]);
         }
     }
 
-    return roman;
+    return romanNumeral;
 }
 
-// Example usage:
-console.log(convertToRoman(36)); // Output: XXXVI
-
-
-
-
-
+// Examples
+console.log(convertToRoman(14)); // Output: XIV
+console.log(convertToRoman(798)); // Output: DCCXCVIII
 // do not edit below this line
 module.exports = convertToRoman
